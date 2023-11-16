@@ -1,9 +1,17 @@
 # Docker Composeファイルのバージョン
 version: "3.9"
 services:
-  practiceapp:
+  app:
   # Dockerfile が置かれている ./infra/php ディレクトリをビルドコンテキストとして指定
     build: ./infra/php
     # ホスト側のディレクトリや名前付きボリュームをコンテナ側へマウントしたい時に指定
     volumes:
       - ./src:/data
+  web:
+    image: nginx:1.20-alpine
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/data
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /data
