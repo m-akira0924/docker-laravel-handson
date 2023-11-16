@@ -1,0 +1,9 @@
+# Docker Composeファイルのバージョン
+version: "3.9"
+services:
+  practiceapp:
+  # Dockerfile が置かれている ./infra/php ディレクトリをビルドコンテキストとして指定
+    build: ./infra/php
+    # ホスト側のディレクトリや名前付きボリュームをコンテナ側へマウントしたい時に指定
+    volumes:
+      - ./src:/data
